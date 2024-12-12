@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; 
+        }
+        nav {
+            background-color: #b22222; 
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        nav h1 {
+            color: white;
+            font-size: 20px;
+        }
+        .lista {
+            margin: 100px auto;
+            padding: 20px;
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #b22222;
+            position: relative;
+        }
+        .lista ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .lista li {
+            font-size: 18px;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .lista li:last-child {
+            border-bottom: none;
+        }
+
+        .lista h1 {
+            text-align: center;
+            color: #228b22;
+        }
+
+        button { 
+            width: 100%; 
+            padding: 10px; 
+            background-color: #228b22; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            cursor: pointer; 
+        }
+        button:hover { 
+            background-color: #1e7c1e; 
+        }
+
+        .total {
+            margin-bottom: 20px;
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            color: #b22222;
+        }
+
+        footer {
+            background-color: #b22222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>Delipizzas</h1>
+        <div>
+            <a href="/">Inicio</a>
+            <a href="/carrinho">Carrinho</a>
+            <a href="/login">Login</a>
+            <a href="/cadastrar">Cadastrar</a>
+        </div>
+    </nav>
+
+    <div class="lista">
+        <h1>Carrinho de Compras</h1>
+        {% if itens %}
+            <ul id="itens-lista">
+                {% for item in itens %}
+                    <li data-preco="{{ item.preco }}">{{ item.nome }}: R${{ item.preco }}</li>
+                {% endfor %}
+            </ul>
+            <div class="total" id="total-preco">Total: R$0.00</div>
+            <button type="submit" onclick="finalizarCompra()">Finalizar Compra</button>
+        {% else %}
+            <p>Seu carrinho está vazio.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function calcularTotal() {
+            const itens = document.querySelectorAll('#itens-lista li');
+            let total = 0;
+
+            itens.forEach(item => {
+                const preco = parseFloat(item.getAttribute('data-preco')) || 0;
+                total += preco;
+            });
+
+            const totalPrecoElement = document.getElementById('total-preco');
+            totalPrecoElement.textContent = `Total: R$${total.toFixed(2)}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            calcularTotal();
+        });
+
+        async function finalizarCompra() {
+            try {
+                const response = await fetch('/compra', {
+                    method: 'POST',
+                });
+
+                if (response.ok) {
+                    window.location.href = '/confirmacao';
+                } else {
+                    const data = await response.json();
+                    alert(data.message || 'Erro ao finalizar a compra.');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Erro ao finalizar a compra.');
+            }
+        }
+    </script>
+
+    <footer>
+        © 2024 Pizzaria Gourmet - Todos os direitos reservados.
+    </footer>
+</body>
+</html>

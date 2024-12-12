@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar - Pizzaria</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; 
+        }
+        nav {
+            background-color: #b22222; 
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        nav h1 {
+            color: white;
+            font-size: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            border: 2px solid #b22222;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        form h1 {
+            text-align: center;
+            color: #228b22;
+        }
+
+        form input[type="text"], 
+        form input[type="email"], 
+        form input[type="number"], 
+        form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px -10px;
+            border: 2px solid #228b22;
+            border-radius: 4px;
+            
+        }
+
+        form input[type="submit"] {
+            background-color: #228b22; 
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #1e7c1e;
+        }
+
+        a {
+            color: #228b22;
+            text-decoration: none;
+            margin: 10px 90px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            text-align: center;
+            color: #228b22;
+        }
+
+        footer {
+            background-color: #b22222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>Delipizzas</h1>
+        <div>
+            <a href="/">Inicio</a>
+            <a href="/carrinho">Carrinho</a>
+            <a href="/login">Login</a>
+            <a href="/cadastrar">Cadastrar</a>
+        </div>
+    </nav>
+    <form method="POST">
+        <h1>Registrar Conta</h1>
+        Nome: <input type="text" name="nome" placeholder="Digite seu nome" required><br>
+        Email: <input type="email" name="email" placeholder="Digite seu email" required><br>
+        Idade: <input type="number" name="idade" placeholder="Digite sua idade" required><br>
+        Telefone: <input type="text" name="telefone" placeholder="Digite seu n° de telefone" required><br>
+        Senha: <input type="password" name="senha" placeholder="Digite uma senha" required><br>
+        <input type="submit" value="Registrar">
+        <br><br>
+        <a href="/login">Já tem uma conta? Faça login</a>
+    </form>
+    
+    <footer>
+        © 2024 Pizzaria Gourmet - Todos os direitos reservados.
+    </footer>
+</body>
+</html>
